@@ -179,14 +179,90 @@ computed属性是获取元数据，计算出上层数据；而computed里的set�
 </div>
 <hr />
 
+<!---表单控件绑定
+表单控件的绑定在网页开发中最最最常用的处理，没有之一。这部门内容较多，要分多节课进行。
+v-model 为表单控件元素创建双向数据绑定（将js变量的值快速设定到控件上，将用户输入的内容快速设置回JS变量中）--->
+<h6 style="text-align: center; color:green">课程17 v-model表单控件绑定 </h6>
+<div id="myApp17">
+    <h4>表单控件绑定文本框</h4>
+    <input type="text" v-model="message" placeholder="来呀，编辑我呀！">
+    <p>Message is : {{message}}</p>
+</div>
+<hr />
+
+<!---表单控件绑定 复选框--->
+<h6 style="text-align: center; color:green">课程18 表单控件 复选框</h6>
+<div id="myApp18">
+    <h4>表单控件 复选框</h4>
+    <!--用type属性来定义各输入控件类型,这里checkbox是指复选框
+    每个复选框都是绑定了一个数组变量checkedGames，该数组在JS中定义-->
+    <input type="checkbox" id="生化危机7" value="生化危机7" v-model="checkedGames">
+    <label for="生化危机7">生化危机7</label>
+    <input type="checkbox" id="模拟飞行" value="模拟飞行" v-model="checkedGames">
+    <label for="模拟飞行">模拟飞行</label>
+    <input type="checkbox" id="塞尔达传说" value="塞尔达传说" v-model="checkedGames">
+    <label for="塞尔达传说">塞尔达传说</label>
+    <br />
+    <!--显示数组中的值-->
+    <p>您选择的游戏是：{{checkedGames}}</p>
+</div>
+<hr />
+
+<!---表单控件绑定 单选按钮 --->
+<h6 style="text-align: center; color:green">课程19 表单控件 单选</h6>
+<div id="myApp19">
+    <h4>表单控件 单选</h4>
+    <h5>选择性别</h5>
+    <input type="radio" id="male" value="男" v-model="pickedSex">
+    <label for="male">男</label>
+    <input type="radio" id="female" value="女" v-model="pickedSex">
+    <label for="male">女</label>
+    <input type="radio" id="others" value="其它" v-model="pickedSex">
+    <label for="others">其它</label>
+    <h5>选择爱好</h5>
+    <input type="radio" id="game" value="游戏" v-model="pickedHobby">
+    <label for="game">游戏</label>
+    <input type="radio" id="movie" value="电影" v-model="pickedHobby">
+    <label for="movie">电影</label>
+    <input type="radio" id="eating" value="吃" v-model="pickedHobby">
+    <label for="eating">吃</label>
+    <h4>选择结果</h4>
+    <p>性别：{{pickedSex}}</p>
+    <p>爱好：{{pickedHobby}}</p>
+</div>
+<hr />
+
 <!--
-<h6 style="text-align: center; color:green">课程11 class对象绑定</h6>
-<div id="myApp11">
+<h6 style="text-align: center; color:green">课程xx class对象绑定</h6>
+<div id="myAppXX">
 </div>
 <hr />
 -->
 <!--+++++++++++++++++++++++++++++++JS区+++++++++++++++++++++++++++++++++++++++-->
 <script>
+    var myApp19 = new Vue({
+        el:'#myApp19',
+        data:{
+            pickedSex:"",
+            pickedHobby:""
+        }
+    });
+
+    var myApp18 = new Vue({
+        el:'#myApp18',
+        data:{
+            checkedGames:[]
+        }
+    });
+
+    var myApp17=new Vue({
+        el:'#myApp17',
+        data:{
+            message:"我爱马里奥"
+        },
+        methods:{}
+    });
+
     var myApp16=new Vue({
         el:'#myApp16',
         data:{ },
