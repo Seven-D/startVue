@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>startVue</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body style="background-color:darkseagreen">
+
+<!--Vue显示信息-----++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<h6 style="text-align: center; color:green">课程1 显示欢迎信息</h6>
+<div id="myApp">
+    {{massage}}
+</div>
+<hr />
+<script>
+    var myApp = new Vue({
+        el:'#myApp',
+        data:{massage:'Hello Vue.js World!'}
+    });
+</script>
+
+<!--Vue的条件与循环 v-if  v-for ----------+++++++++++++++++++++++++++-->
+<h6 style="text-align: center; color:green">课程2 条件判断v-if与循环v-for</h6>
+<div id="myApp2">
+    <h3>游戏列表</h3>
+    <div v-if="seen">2017年最新发卖</div>
+    <ol>
+        <li v-for="game in games">
+            {{game.title}}/{{game.price}}元
+        </li>
+    </ol>
+</div>
+<hr />
+<script>
+    var myApp2 = new Vue({
+        el:'#myApp2',
+        data:{
+            seen:true,
+            games:[
+                {title:'勇者斗恶龙',price:400},
+                {title:'超级玛丽奥',price:380},
+                {title:'勇者斗恶龙',price:99},
+                {title:'暗黑破坏神',price:188},
+                {title:'地下城与勇士',price:235}
+            ]
+        }
+    });
+</script>
+
+<!--Vue处理用户输入  v-model 为页面输入框进行数据绑定-------------------------->
+<h6 style="text-align: center; color:green">课程3 处理用户输入</h6>
+<div id="myApp3">
+    <p>您最喜欢的游戏是：{{mygame}}</p>
+    <input v-model="mygame">
+</div>
+<hr />
+<script>
+    var myApp3 = new Vue({
+        el:'#myApp3',
+        data:{
+            mygame:'超级玛丽奥2'
+        }
+    });
+</script>
+
+<!--Vue按钮事件 v-on  ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+为页面元素绑定各种事件：keydown,keyup,click,dbclick,load,etd.
+@符号可以替代 v-on:这一串字符-->
+<h6 style="text-align: center; color:green">课程4 按钮事件v-on</h6>
+<div id="myApp4">
+    <p>您最喜欢的游戏是：{{mygame}}</p>
+    <button v-on:click="btnClick('我的世界')">我的世界</button>
+    <button v-on:click="btnClick('勇者斗恶龙')">勇者斗恶龙</button>
+    <button @click="btnClick('塞尔达传说')">塞尔达传说</button>
+    <button @click="btnClick('魔界战记')">魔界战记</button>
+</div>
+<hr />
+<script>
+    var myApp4 = new Vue({
+        el:'#myApp4',
+        data:{
+            mygame:'超级玛里奥'
+        },
+        methods:{
+            btnClick:function (pname) {
+                this.mygame=pname
+            }
+        }
+    });
+</script>
+
+<!--Vue组件 component --------------------------------------------------------
+定义页面的局部区域块，完成单独的页面**小**功能-->
+<!--由Vue定义的一个组件标签 game-item ,在JS中定义-->
+<!--调用关系：0、<ol>列表标签引用组件game-item
+             1、用v-for来循环games数组，值赋给item变量
+             2、item值赋给组件的game属性
+             3、组件的template模板展示列表的每一行-->
+<h6 style="text-align: center; color:green">课程5 组件component</h6>
+<div id="myApp5">
+    <ol>
+        <game-item v-for="item in games" v-bind:game="item"></game-item>
+    </ol>
+</div>
+<hr />
+<script>
+    /*组件定义：game-item
+    * template模板表示了HTML5的〈li〉标签*/
+    Vue.component('game-item',{
+        props:['game'],
+        template:'<li> {{game.title}} </li>'
+    });
+    var myApp5 = new Vue({
+        el:'#myApp5',
+        data:{
+            games:[
+                {title:'斗地主'},
+                {title:'打麻将'},
+                {title:'UNO'},
+                {title:'你去哪里呀'}
+            ]
+        }
+    });
+</script>
+
+<!--过滤器filters，其实效果相当于格式化输出--+++++++++++++++++++++++++++++++++++++++++++++--->
+<h6 style="text-align: center; color:green">课程6 过滤器filters</h6>
+<div id="myApp6">
+    <p>{{message}}</p>
+    <p>{{message|toupper}}</p>
+    <br />
+    <p>现在的vue.js的学习进度是{{num}}({{num|topercentage}})。</p>
+</div>
+<hr />
+<script>
+    var myApp6 = new Vue({
+        el:'#myApp6',
+        data: {
+            message: 'hello vue.js world!',
+            num: 0.3
+        },
+        /*其实就是格式化输出*/
+        filters:{
+            /*转换成大写*/
+            toupper:function (value) {
+                return value.toUpperCase();
+            },
+            /*转换成百分数*/
+            topercentage:function (value) {
+                return value * 100 + '%';
+            }
+        }
+    });
+</script>
+
+<!--计算属性computed  ----+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+处理元数据（即第一手数据，比如数据库中存储的数据），便于二次利用。如消费税的自动计算功能-->
+<h6 style="text-align: center; color:green">课程7 计算属性 computed</h6>
+<div id="myApp7">
+    今年3月3日发卖的《任天堂》新一代主机Switch的价格是：{{price}}日元，含税价为：{{priceInTax}}日元，折合人民币：{{priceChinaRMB}}元。
+</div>
+<hr />
+<script>
+    var myApp7 = new Vue({
+        el:'#myApp7',
+        data:{
+            price:29980
+        },
+        computed:{
+            priceInTax:function () {
+                return this.price*1.08;
+            },
+            priceChinaRMB:function () {
+                return Math.round(this.priceInTax/16.75);
+            }
+        }
+    });
+</script>
+
+
+<!--观察属性 watch  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+用于观察变量的变化，然后进行相应的处理。等同于change事件？-->
+<h6 style="text-align: center; color:green">课程8 变量观察属性 watch</h6>
+<div id="myApp8">
+    <p>今年3月3日发卖的《任天堂》新一代主机Switch的价格是：{{price}}日元，含税价为：{{priceInTax}}日元，折合人民币：{{priceChinaRMB}}元。</p>
+    <button @click="btnClick(10000)">加价10000</button>
+</div>
+<hr />
+<script>
+    var myApp8 = new Vue({
+        el:'#myApp8',
+        data:{
+            price:0, //初始值赋0
+            priceInTax:0,
+            priceChinaRMB:0
+        },
+        /*监视price变量的变化，如果有变化，执行函数体*/
+        watch:{
+            price:function (newVal,oldVal) {
+                console.log(newVal,oldVal);
+                this.priceInTax=Math.round(this.price*1.08);
+                this.priceChinaRMB=Math.round(this.priceInTax/16.75);
+            }
+        },
+        /*定义btnClick方法并传回参数，将price变量累加该参数值*/
+        methods:{
+            btnClick:function (newPrice) {
+                this.price += newPrice;
+            }
+        }
+    });
+    /*可以给各属性初始值赋0，在对象体执行结束后，在这儿通过 对象.属性 的方式给price属性赋值，触发了watch，执行了其它两个属性的计算。
+    * 效果就是一开始，三个价格属性都有值啦~*/
+    myApp8.price=29980;
+</script>
+
+
+<!--设定计算 属性  set ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+computed属性是获取元数据，计算出上层数据；而computed里的set可以设置上层数据，从而改变元数据-->
+<h6 style="text-align: center; color:green">课程9 computed属性中的get与set</h6>
+<div id="myApp9">
+    <p>今年3月3日发卖的《任天堂》新一代主机Switch的价格是：{{price}}日元，含税价为：{{priceInTax}}日元，折合人民币：{{priceChinaRMB}}元。</p>
+    <button @click="btnClick(10800)">把含税价改为10800，同时自动更改原价</button>
+</div>
+<hr />
+<script>
+    /*调用逻辑：
+    * 网页加载时，price有初始值29980，priceInTax用了get方法计算出来，priceChinaRMB同样经过计算出来
+    * 点击按钮时，调用了btnClick方法并传回参数，该参数赋给了priceInTax，此时是用了priceInTax的set方法，并计算出price。
+    */
+    var myApp9 = new Vue({
+        el:'#myApp9',
+        data:{
+            price:29980
+        },
+        computed:{
+            /*这里priceInTax是个JS对象，里面有两个方法，get和set
+            * 当要取得含税价时，走get逻辑
+            * 当要给含税价赋值时，走set逻辑 */
+            priceInTax:{
+                get:function () {
+                    return this.price * 1.08;
+                },
+                set:function (value) {
+                    this.price = value / 1.08;
+                }
+            },
+            priceChinaRMB:function () {
+                return Math.round(this.priceInTax / 16.75);
+            }
+        },
+        methods:{
+            btnClick:function (newPrice) {
+                this.priceInTax = newPrice;
+            }
+        }
+    });
+</script>
+
+
+<!---class绑定 v-bind:class 为HTML标记绑定样式单的class属性 ---------------------------------------->
+<!--给div标签的class属性绑定上css样式单active（该样式在css文件中定义），什么时候绑定?由开关量isActive（在vue实例中定义）来决定；
+其中，:class的简写法可以替代v-bind:class的写法；
+按钮点击来改变isActive的值-->
+<h6 style="text-align: center; color:green">课程10 class属性绑定</h6>
+<div id="myApp10">
+    <div v-bind:class="{active:isActive}">红色文本1</div>
+    <div :class="{active:isActive}">红色文本2</div>
+    <button @click="btnClick">改变class吧</button>
+</div>
+<hr />
+<script>
+    var myApp10 = new Vue({
+        el:'#myApp10',
+        data:{
+            isActive:true
+        },
+        methods:{
+            btnClick:function () {
+                /*取反值*/
+                this.isActive = !this.isActive;
+            }
+        }
+    });
+</script>
+
+
+<!---class对象绑定 v-bind 为HTML标签绑定样式单的class对象。注意，上一节是class属性，这一节是class对象！-->
+<!--用法：
+在JS实例中定义了一个myClass对象，对象中有两个属性active和big;
+将myClass对象绑定到了div标签中的class属性，用myClass的两个属性去控制文本效果
+设置两个按钮，分别去动态改变这两个属性值--->
+<h6 style="text-align: center; color:green">课程11 class对象绑定</h6>
+<div id="myApp11">
+    <div :class="myClass">红色文本</div>
+    <button @click="btnClick1">改变active吧</button>
+    <button @click="btnClick2">改变big吧</button>
+</div>
+<hr />
+<script>
+    var myApp11 = new Vue({
+        el:'#myApp11',
+        data:{
+            /*这里定义了一个JS对象，并绑定到了HTML的标签上的class*/
+            myClass:{
+                active:true,
+                big:true
+            }
+        },
+        methods:{
+            btnClick1:function () {
+                this.myClass.active = !this.myClass.active;
+            },
+            btnClick2:function () {
+                this.myClass.big = !this.myClass.big;
+            }
+        }
+    });
+</script>
+
+
+<!---条件渲染--判断vue.js变量值，然后执行页面渲染逻辑。（v-if,v-else-if,v-else）-------------------->
+<h6 style="text-align: center; color:green">课程12 条件渲染</h6>
+<div id="myApp12">
+    <h1 v-if="result==0">成绩未公布</h1>
+    <h5 v-else-if="result<60" style="color:red">{{result}}分--考试不合格</h5>
+    <h4 v-else-if="result<80">{{result}}分--还需要努力</h4>
+    <h3 v-else-if="result<95" style="color: blue;">{{result}}分-考得不错，玩游戏吧</h3>
+    <h2 v-else style="color: green;">{{result}}分-你是考神，奖励10000元</h2>
+    <button @click="btnClick">考试成绩</button>
+</div>
+<hr />
+<script>
+    var myApp12 = new Vue({
+        el:'#myApp12',
+        data:{
+            result:0
+        },
+        methods:{
+            btnClick:function () {
+                this.result=Math.round(Math.random()*100);
+            }
+        }
+    });
+</script>
+
+
+
+<!---元素显示  v-show  标记是否显示HTML元素。///////////////////////////////////////////////////
+注意：v-show设置的标签在HTML的DOM中不会消失！
+这点有别于上一节的条件渲染v-if,v-else-if，它只渲染满足条件的一条，其它不满足条件的在DOM中消失。-->
+<h6 style="text-align: center; color:green">课程13 元素显示v-show</h6>
+<div id="myApp13">
+    <h1 v-show="result">任天堂新一代主机Switch</h1>
+    <button @click="btnClick">显示不显示</button>
+</div>
+<hr />
+<script>
+    var myApp13 = new Vue({
+        el:'#myApp13',
+        data:{
+            result:true,
+        },
+        methods:{
+            btnClick:function () {
+                this.result=!this.result;
+            }
+        }
+    });
+</script>
+
+
+<!---////////////////////////////////////////////////////////////////////////////////////////->
+<!--列表渲染 v-for 循环数组元素，整理内容显示到页面上-->
+<h6 style="text-align: center; color:green">课程14 列表渲染用v-for</h6>
+<div id="myApp14">
+    <ul>
+        <li v-for="(game,index) in games">({{index+1}}) {{game.title}} / 售价:{{game.price}}元</li>
+    </ul>
+</div>
+<hr />
+<script>
+    var myApp14 =new Vue({
+        el:'#myApp14',
+        data:{
+            games:[
+                {title:"勇者斗恶龙",price:500},
+                {title:"跑跑卡丁车",price:400},
+                {title:"地下城勇士",price:300},
+                {title:"暗黑破坏神",price:200},
+                {title:"魔兽世界",price:100}
+            ]
+        }
+    });
+</script>
+
+
+<!--///////////////////////////////////////////////////////////////////////////////////////////-->
+<!----JS对象迭代 v-for 循环JS对象，把对象内容循环显示到页面上-->
+<!----这个用法什么时候使用？
+就是当我们拿到一个对象，但并不知道对象里面有什么属性和方法的时候，用这个迭代方法遍历对象的所有元素
+就可以知道对象的结构是如何，就可以使用了-->
+<h6 style="text-align: center; color:green">课程15 JS对象迭代 v-for</h6>
+<div id="myApp15">
+    <h5>JS对象的迭代，可以遍历出对象的所有元素</h5>
+    <div v-for="(value,key) in mygame"> <!--这里调用元素的属性，必须是前面value,后面key -->
+         {{key}} ：{{value}}
+    </div>
+</div>
+<hr />
+<script>
+    var myApp15 = new Vue({
+        el:'#myApp15',
+        data:{
+            mygame:{
+                title:"乌贼娘二代",
+                price:350,
+                pubdate:"2017年夏季",
+                category:"射击",
+                agerange:"全年龄"
+            }
+        }
+    });
+</script>
+
+
+<!--////////////////////////////////////////////////////////////////////////////////////-->
+<!---事件处理器 v-on:(event) 页面元素的事件绑定（click,keyup,load等）
+ 缩略写法 @(event)  最开始的时候已经接触过
+ 主要用法：当用户与页面交互时，如何获取用户交互信息-->
+<h6 style="text-align: center; color:green">课程16 事件处理器 v-on</h6>
+<div id="myApp16">
+    <h3>事件处理器</h3>
+    <input id="txtName" v-on:keyup="txtKeyup($event)">  <!--将input元素绑定keyup事件并调用txtKeyup方法，参数来自event -->
+    <button id="btnOK" v-on:click="btnClick($event)">OK</button>
+</div>
+<hr />
+<script>
+    var myApp16=new Vue({
+        el:'#myApp16',
+        data:{ },
+        methods:{
+            txtKeyup:function (event) {
+                this.debugLog(event);
+            },
+            btnClick:function (event) {
+                this.debugLog(event);
+            },
+            /*根据传进来的事件，控件台打印出以下内容*/
+            debugLog:function (event) {
+                console.log(
+                    event.srcElement.tagName,//标签名
+                    event.srcElement.id, //id对应上面HTML标签后id=""的内容
+                    event.srcElement.innerHTML, //HTML内的文本，input标签没内容，button标签有OK
+                    event.key ? event.key:"" //这里的key指键盘值，键盘输入什么就是什么值，鼠标事件没有内容
+                )
+            }
+        }
+    });
+</script>
+
+
+<!--///////////////////////////////////////////////////////////////////////////////////////-->
+<!---表单控件绑定
+表单控件的绑定在网页开发中最最最常用的处理，没有之一。这部门内容较多，要分多节课进行。
+v-model 为表单控件元素创建双向数据绑定（将js变量的值快速设定到控件上，将用户输入的内容快速设置回JS变量中）--->
+<h6 style="text-align: center; color:green">课程17 v-model表单控件绑定 </h6>
+<div id="myApp17">
+    <h4>表单控件绑定文本框</h4>
+    <input type="text" v-model="message" placeholder="来呀，编辑我呀！">
+    <p>Message is : {{message}}</p>
+</div>
+<hr />
+<script>
+    var myApp17=new Vue({
+        el:'#myApp17',
+        data:{
+            message:"我爱马里奥"
+        },
+        methods:{}
+    });
+</script>
+
+
+<!---///////////////////////////////////////////////////////////////////////////////////////---->
+<!---表单控件绑定 复选框--->
+<h6 style="text-align: center; color:green">课程18 表单控件 复选框</h6>
+<div id="myApp18">
+    <h4>表单控件 复选框</h4>
+    <!--用type属性来定义各输入控件类型,这里checkbox是指复选框
+    每个复选框都是绑定了一个数组变量checkedGames，该数组在JS中定义-->
+    <input type="checkbox" id="生化危机7" value="生化危机7" v-model="checkedGames">
+    <label for="生化危机7">生化危机7</label>
+    <input type="checkbox" id="模拟飞行" value="模拟飞行" v-model="checkedGames">
+    <label for="模拟飞行">模拟飞行</label>
+    <input type="checkbox" id="塞尔达传说" value="塞尔达传说" v-model="checkedGames">
+    <label for="塞尔达传说">塞尔达传说</label>
+    <br />
+    <!--显示数组中的值-->
+    <p>您选择的游戏是：{{checkedGames}}</p>
+</div>
+<hr />
+<script>
+    var myApp18 = new Vue({
+        el:'#myApp18',
+        data:{
+            checkedGames:[]
+        }
+    });
+</script>
+
+
+<!---////////////////////////////////////////////////////////////////////////////////////----->
+<!---表单控件绑定 单选按钮 --->
+<h6 style="text-align: center; color:green">课程19 表单控件 单选</h6>
+<div id="myApp19">
+    <h4>表单控件 单选</h4>
+    <h5>选择性别</h5>
+    <input type="radio" id="male" value="男" v-model="pickedSex">
+    <label for="male">男</label>
+    <input type="radio" id="female" value="女" v-model="pickedSex">
+    <label for="male">女</label>
+    <input type="radio" id="others" value="其它" v-model="pickedSex">
+    <label for="others">其它</label>
+    <h5>选择爱好</h5>
+    <input type="radio" id="game" value="游戏" v-model="pickedHobby">
+    <label for="game">游戏</label>
+    <input type="radio" id="movie" value="电影" v-model="pickedHobby">
+    <label for="movie">电影</label>
+    <input type="radio" id="eating" value="吃" v-model="pickedHobby">
+    <label for="eating">吃</label>
+    <h4>选择结果</h4>
+    <p>性别：{{pickedSex}}</p>
+    <p>爱好：{{pickedHobby}}</p>
+</div>
+<hr />
+<script>
+    var myApp19 = new Vue({
+        el:'#myApp19',
+        data:{
+            pickedSex:"",
+            pickedHobby:""
+        }
+    });
+</script>
+
+
+<!----///////////////////////////////////////////////////////////////////////////////--->
+<!---表单控件绑定 下拉框select --->
+<h6 style="text-align: center; color:green">课程20 下拉框控件select</h6>
+<div id="myApp20">
+    <h5>最喜欢的NBA球星是：</h5>
+    <select v-model="likedNBAStar" style="width:210px;">
+        <option>科比</option>
+        <option>战幕斯</option>
+        <option>哈登</option>
+        <option>库里</option>
+        <option>杜兰特</option>
+    </select>
+    <h5>最喜欢的全明星是(按ctrl键进行多选)：</h5>
+    <select v-model="likedNBAStars" multiple style="width:210px;"> <!--multiple是HTML标签中的多选属性，按键盘的ctrl键进行多选-->
+        <option>阿德托昆博</option>
+        <option>怀特赛德</option>
+        <option>阿尔德里奇</option>
+        <option>戴维斯</option>
+        <option>格里芬</option>
+        <option>战幕斯</option>
+        <option>杜兰特</option>
+        <option>巴特勒</option>
+        <option>德罗赞</option>
+        <option>哈登</option>
+        <option>科比</option>
+        <option>韦德</option>
+        <option>伦纳德</option>
+        <option>库里</option>
+        <option>欧文</option>
+        <option>保罗</option>
+        <option>林书壕</option>
+    </select>
+    <h5>选择结果是</h5>
+    <p>喜欢的明星：{{likedNBAStar}}</p>
+    <p>喜欢的明星：{{likedNBAStars}}</p>
+
+</div>
+<hr />
+<script>
+    var myApp20 = new Vue({
+        el:'#myApp20',
+        data:{
+            likedNBAStar:null,
+            likedNBAStars:[]
+        }
+    });
+</script>
+
+
+<!----//////////////////////////////////////////////////////////////////////////////////////--->
+<!---表单修饰符 .lazy  .number  .trim --->
+<!--分别说明
+.lazy  （懒装入）用于用户输入内容时不作绑定数据的更新处理，而在控件的onchange事件中更新绑定的变量。就是说把即时更新变成输入完之后再一次更新，提高网面性能
+.number  将用户输入的内容转换为数值型，如果用户输入非数值数据，刚返回NaN.
+.trim  自动去掉用户输入内容两端的空格-->
+<h6 style="text-align: center; color:green">课程21 表单修饰符</h6>
+<div id="myApp21">
+    <h3>用户注册</h3>
+    <div>
+        <label for="username">用户：</label>
+        <input type="text" id="username" v-model.lazy="username" @change="checkUsername">
+        <span v-if="checkUsernameOK">可注册</span>
+    </div>
+    <div>
+        <label for="age">年龄：</label>
+        <input type="number" id="age" v-model.number="age" >
+    </div>
+    <div>
+        <label for="content">个人简介：</label><br />
+        <textarea id="content" v-model.trim="content"  cols="55" rows="8"></textarea>
+    </div>
+    <h3>信息区</h3>
+    <p>{{username}}</p>
+    <p>{{age}}</p>
+    <p>{{content}}</p>
+</div>
+<hr />
+<script>
+    var myApp21 = new Vue({
+        el:'#myApp21',
+        data:{
+            username:"",
+            checkUsernameOK:false,
+            age:"",
+            content:""
+        },
+        methods:{
+            checkUsername:function () {
+                if (this.username.length > 0) this.checkUsernameOK = true;
+                else this.checkUsernameOK = false;
+            }
+        }
+    });
+</script>
+
+
+<!---///////////////////////////////////////////////////////////////////////////////////----->
+<!---组件：基础的基础
+Component 类似Com组件，C++中的DLL等，在网页中就是指一小块区域内容，完成一个小的页面功能，比如天气预报。
+Portlet   网面开发领域有个叫门户的概念，Port网站的入口，通过入口进入网站后有很多方方面面的小功能 ，
+这每个小功能就叫作Portlet，（理解为进入一扇大门，里面还有很多房间，每个房间还有门） 可了解门户网站的概念-->
+<h6 style="text-align: center; color:green">课程22 组件的基础知识一</h6>
+<div id="myApp22">
+    <today-weather></today-weather>
+</div>
+<hr />
+<script>
+    /*给页面注册（定义）一个vue组件（或者说一个自定义HTML标签吧）
+    * 注册组件必须写在对象声明（如下面的myApp22）之前，之前，之前！写在之后是无效的。*/
+    Vue.component('today-weather',{ //组件名
+        template:'<div>今天下雨出不去了，干什么呢？来两盘D3吧。</div>' //模板
+    });
+    var myApp22 = new Vue({
+        el:'#myApp22',
+        data:{}
+    });
+</script>
+
+
+
+
+<!--
+<h6 style="text-align: center; color:green">课程xx class对象绑定</h6>
+<div id="myAppXX">
+</div>
+<hr />
+<script>
+</script>
+-->
+
+</body>
+</html>
