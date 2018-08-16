@@ -9,7 +9,7 @@
 <body style="background-color:darkseagreen">
 
 <!--Vue显示信息-----++++++++++++++++++++++++++++++++++++++++++++++++++-->
-<h6 style="text-align: center; color:green">课程1 显示欢迎信息</h6>
+<h6 style="text-align: center; color:green">课程1 》显示欢迎信息</h6>
 <div id="myApp">
     {{massage}}
 </div>
@@ -22,7 +22,7 @@
 </script>
 
 <!--Vue的条件与循环 v-if  v-for ----------+++++++++++++++++++++++++++-->
-<h6 style="text-align: center; color:green">课程2 条件判断v-if与循环v-for</h6>
+<h6 style="text-align: center; color:green">课程2 》条件判断v-if与循环v-for</h6>
 <div id="myApp2">
     <h3>游戏列表</h3>
     <div v-if="seen">2017年最新发卖</div>
@@ -50,7 +50,7 @@
 </script>
 
 <!--Vue处理用户输入  v-model 为页面输入框进行数据绑定-------------------------->
-<h6 style="text-align: center; color:green">课程3 处理用户输入</h6>
+<h6 style="text-align: center; color:green">课程3 》处理用户输入</h6>
 <div id="myApp3">
     <p>您最喜欢的游戏是：{{mygame}}</p>
     <input v-model="mygame">
@@ -68,7 +68,7 @@
 <!--Vue按钮事件 v-on  ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 为页面元素绑定各种事件：keydown,keyup,click,dbclick,load,etd.
 @符号可以替代 v-on:这一串字符-->
-<h6 style="text-align: center; color:green">课程4 按钮事件v-on</h6>
+<h6 style="text-align: center; color:green">课程4 》按钮事件v-on</h6>
 <div id="myApp4">
     <p>您最喜欢的游戏是：{{mygame}}</p>
     <button v-on:click="btnClick('我的世界')">我的世界</button>
@@ -98,7 +98,7 @@
              1、用v-for来循环games数组，值赋给item变量
              2、item值赋给组件的game属性
              3、组件的template模板展示列表的每一行-->
-<h6 style="text-align: center; color:green">课程5 组件component</h6>
+<h6 style="text-align: center; color:green">课程5 》 组件component</h6>
 <div id="myApp5">
     <ol>
         <game-item v-for="item in games" v-bind:game="item"></game-item>
@@ -126,7 +126,7 @@
 </script>
 
 <!--过滤器filters，其实效果相当于格式化输出--+++++++++++++++++++++++++++++++++++++++++++++--->
-<h6 style="text-align: center; color:green">课程6 过滤器filters</h6>
+<h6 style="text-align: center; color:green">课程6 》过滤器filters</h6>
 <div id="myApp6">
     <p>{{message}}</p>
     <p>{{message|toupper}}</p>
@@ -157,7 +157,7 @@
 
 <!--计算属性computed  ----+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 处理元数据（即第一手数据，比如数据库中存储的数据），便于二次利用。如消费税的自动计算功能-->
-<h6 style="text-align: center; color:green">课程7 计算属性 computed</h6>
+<h6 style="text-align: center; color:green">课程7 》计算属性 computed</h6>
 <div id="myApp7">
     今年3月3日发卖的《任天堂》新一代主机Switch的价格是：{{price}}日元，含税价为：{{priceInTax}}日元，折合人民币：{{priceChinaRMB}}元。
 </div>
@@ -182,7 +182,7 @@
 
 <!--观察属性 watch  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 用于观察变量的变化，然后进行相应的处理。等同于change事件？-->
-<h6 style="text-align: center; color:green">课程8 变量观察属性 watch</h6>
+<h6 style="text-align: center; color:green">课程8 》变量观察属性 watch</h6>
 <div id="myApp8">
     <p>今年3月3日发卖的《任天堂》新一代主机Switch的价格是：{{price}}日元，含税价为：{{priceInTax}}日元，折合人民币：{{priceChinaRMB}}元。</p>
     <button @click="btnClick(10000)">加价10000</button>
@@ -219,7 +219,7 @@
 
 <!--设定计算 属性  set ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 computed属性是获取元数据，计算出上层数据；而computed里的set可以设置上层数据，从而改变元数据-->
-<h6 style="text-align: center; color:green">课程9 computed属性中的get与set</h6>
+<h6 style="text-align: center; color:green">课程9 》computed属性中的get与set</h6>
 <div id="myApp9">
     <p>今年3月3日发卖的《任天堂》新一代主机Switch的价格是：{{price}}日元，含税价为：{{priceInTax}}日元，折合人民币：{{priceChinaRMB}}元。</p>
     <button @click="btnClick(10800)">把含税价改为10800，同时自动更改原价</button>
@@ -264,7 +264,7 @@ computed属性是获取元数据，计算出上层数据；而computed里的set�
 <!--给div标签的class属性绑定上css样式单active（该样式在css文件中定义），什么时候绑定?由开关量isActive（在vue实例中定义）来决定；
 其中，:class的简写法可以替代v-bind:class的写法；
 按钮点击来改变isActive的值-->
-<h6 style="text-align: center; color:green">课程10 class属性绑定</h6>
+<h6 style="text-align: center; color:green">课程10 》class属性绑定</h6>
 <div id="myApp10">
     <div v-bind:class="{active:isActive}">红色文本1</div>
     <div :class="{active:isActive}">红色文本2</div>
@@ -292,7 +292,7 @@ computed属性是获取元数据，计算出上层数据；而computed里的set�
 在JS实例中定义了一个myClass对象，对象中有两个属性active和big;
 将myClass对象绑定到了div标签中的class属性，用myClass的两个属性去控制文本效果
 设置两个按钮，分别去动态改变这两个属性值--->
-<h6 style="text-align: center; color:green">课程11 class对象绑定</h6>
+<h6 style="text-align: center; color:green">课程11 》class对象绑定</h6>
 <div id="myApp11">
     <div :class="myClass">红色文本</div>
     <button @click="btnClick1">改变active吧</button>
@@ -322,7 +322,7 @@ computed属性是获取元数据，计算出上层数据；而computed里的set�
 
 
 <!---条件渲染--判断vue.js变量值，然后执行页面渲染逻辑。（v-if,v-else-if,v-else）-------------------->
-<h6 style="text-align: center; color:green">课程12 条件渲染</h6>
+<h6 style="text-align: center; color:green">课程12 》条件渲染</h6>
 <div id="myApp12">
     <h1 v-if="result==0">成绩未公布</h1>
     <h5 v-else-if="result<60" style="color:red">{{result}}分--考试不合格</h5>
@@ -351,7 +351,7 @@ computed属性是获取元数据，计算出上层数据；而computed里的set�
 <!---元素显示  v-show  标记是否显示HTML元素。///////////////////////////////////////////////////
 注意：v-show设置的标签在HTML的DOM中不会消失！
 这点有别于上一节的条件渲染v-if,v-else-if，它只渲染满足条件的一条，其它不满足条件的在DOM中消失。-->
-<h6 style="text-align: center; color:green">课程13 元素显示v-show</h6>
+<h6 style="text-align: center; color:green">课程13 》元素显示v-show</h6>
 <div id="myApp13">
     <h1 v-show="result">任天堂新一代主机Switch</h1>
     <button @click="btnClick">显示不显示</button>
@@ -374,7 +374,7 @@ computed属性是获取元数据，计算出上层数据；而computed里的set�
 
 <!---////////////////////////////////////////////////////////////////////////////////////////->
 <!--列表渲染 v-for 循环数组元素，整理内容显示到页面上-->
-<h6 style="text-align: center; color:green">课程14 列表渲染用v-for</h6>
+<h6 style="text-align: center; color:green">课程14 》列表渲染用v-for</h6>
 <div id="myApp14">
     <ul>
         <li v-for="(game,index) in games">({{index+1}}) {{game.title}} / 售价:{{game.price}}元</li>
@@ -402,7 +402,7 @@ computed属性是获取元数据，计算出上层数据；而computed里的set�
 <!----这个用法什么时候使用？
 就是当我们拿到一个对象，但并不知道对象里面有什么属性和方法的时候，用这个迭代方法遍历对象的所有元素
 就可以知道对象的结构是如何，就可以使用了-->
-<h6 style="text-align: center; color:green">课程15 JS对象迭代 v-for</h6>
+<h6 style="text-align: center; color:green">课程15 》JS对象迭代 v-for</h6>
 <div id="myApp15">
     <h5>JS对象的迭代，可以遍历出对象的所有元素</h5>
     <div v-for="(value,key) in mygame"> <!--这里调用元素的属性，必须是前面value,后面key -->
@@ -430,7 +430,7 @@ computed属性是获取元数据，计算出上层数据；而computed里的set�
 <!---事件处理器 v-on:(event) 页面元素的事件绑定（click,keyup,load等）
  缩略写法 @(event)  最开始的时候已经接触过
  主要用法：当用户与页面交互时，如何获取用户交互信息-->
-<h6 style="text-align: center; color:green">课程16 事件处理器 v-on</h6>
+<h6 style="text-align: center; color:green">课程16 》事件处理器 v-on</h6>
 <div id="myApp16">
     <h3>事件处理器</h3>
     <input id="txtName" v-on:keyup="txtKeyup($event)">  <!--将input元素绑定keyup事件并调用txtKeyup方法，参数来自event -->
@@ -466,7 +466,7 @@ computed属性是获取元数据，计算出上层数据；而computed里的set�
 <!---表单控件绑定
 表单控件的绑定在网页开发中最最最常用的处理，没有之一。这部门内容较多，要分多节课进行。
 v-model 为表单控件元素创建双向数据绑定（将js变量的值快速设定到控件上，将用户输入的内容快速设置回JS变量中）--->
-<h6 style="text-align: center; color:green">课程17 v-model表单控件绑定 </h6>
+<h6 style="text-align: center; color:green">课程17 》v-model表单控件绑定 </h6>
 <div id="myApp17">
     <h4>表单控件绑定文本框</h4>
     <input type="text" v-model="message" placeholder="来呀，编辑我呀！">
@@ -486,7 +486,7 @@ v-model 为表单控件元素创建双向数据绑定（将js变量的值快速�
 
 <!---///////////////////////////////////////////////////////////////////////////////////////---->
 <!---表单控件绑定 复选框--->
-<h6 style="text-align: center; color:green">课程18 表单控件 复选框</h6>
+<h6 style="text-align: center; color:green">课程18 》表单控件 复选框</h6>
 <div id="myApp18">
     <h4>表单控件 复选框</h4>
     <!--用type属性来定义各输入控件类型,这里checkbox是指复选框
@@ -514,7 +514,7 @@ v-model 为表单控件元素创建双向数据绑定（将js变量的值快速�
 
 <!---////////////////////////////////////////////////////////////////////////////////////----->
 <!---表单控件绑定 单选按钮 --->
-<h6 style="text-align: center; color:green">课程19 表单控件 单选</h6>
+<h6 style="text-align: center; color:green">课程19 》表单控件 单选</h6>
 <div id="myApp19">
     <h4>表单控件 单选</h4>
     <h5>选择性别</h5>
@@ -549,7 +549,7 @@ v-model 为表单控件元素创建双向数据绑定（将js变量的值快速�
 
 <!----///////////////////////////////////////////////////////////////////////////////--->
 <!---表单控件绑定 下拉框select --->
-<h6 style="text-align: center; color:green">课程20 下拉框控件select</h6>
+<h6 style="text-align: center; color:green">课程20 》下拉框控件select</h6>
 <div id="myApp20">
     <h5>最喜欢的NBA球星是：</h5>
     <select v-model="likedNBAStar" style="width:210px;">
@@ -602,7 +602,7 @@ v-model 为表单控件元素创建双向数据绑定（将js变量的值快速�
 .lazy  （懒装入）用于用户输入内容时不作绑定数据的更新处理，而在控件的onchange事件中更新绑定的变量。就是说把即时更新变成输入完之后再一次更新，提高网面性能
 .number  将用户输入的内容转换为数值型，如果用户输入非数值数据，刚返回NaN.
 .trim  自动去掉用户输入内容两端的空格-->
-<h6 style="text-align: center; color:green">课程21 表单修饰符</h6>
+<h6 style="text-align: center; color:green">课程21 》表单修饰符</h6>
 <div id="myApp21">
     <h3>用户注册</h3>
     <div>
@@ -648,7 +648,7 @@ v-model 为表单控件元素创建双向数据绑定（将js变量的值快速�
 Component 类似Com组件，C++中的DLL等，在网页中就是指一小块区域内容，完成一个小的页面功能，比如天气预报。
 Portlet   网面开发领域有个叫门户的概念，Port网站的入口，通过入口进入网站后有很多方方面面的小功能 ，
 这每个小功能就叫作Portlet，（理解为进入一扇大门，里面还有很多房间，每个房间还有门） 可了解门户网站的概念-->
-<h6 style="text-align: center; color:green">课程22 组件的基础知识一</h6>
+<h6 style="text-align: center; color:green">课程22 》组件的基础知识一</h6>
 <div id="myApp22">
     <today-weather></today-weather>
 </div>
@@ -666,10 +666,172 @@ Portlet   网面开发领域有个叫门户的概念，Port网站的入口，通
 </script>
 
 
+<!---///////////////////////////////////////////////////////////////////////////////////----->
+<!---组件：局部组件与注册--
+Vue.js中的组件不仅可以单独声明注册使用（全局组件），还可以在Vue实例中进行局部注册使用。-->
+<h6 style="text-align: center; color:green">课程23 》局部组件与注册</h6>
+<div id="myApp23">
+    <my-weather></my-weather>
+</div>
+<hr />
+<script>
+    //上一节中，我们是在Vue这个对象下面定义的组件，只要全局有引入VUE的地方都可以调用，叫全局组件
+    //这一节中，我们是在Vue实例myApp23中定义的组件，实例中定义的组件，组件名是my-weather，该组件调用了我们定义的WeatherComponent对象
+    //该对象里面有个template属性。最终网面上解释出来的就是template的内容。
+    //在实例中定义的组件，我们叫局部组件，它的作用域只在该实例中。
+    //注意，实例中的components属性，这是Vue实例中比较重要的属性，如同el,data,methods等
+    var WeatherComponent = {
+        template:'<div>今天下雨，随它去吧！</div>>'
+    };
+    var myApp23 = new Vue({
+        el:'#myApp23',
+        data:{
+
+        },
+        components:{
+            'my-weather':WeatherComponent
+        }
+    })
+
+</script>
 
 
+<!---///////////////////////////////////////////////////////////////////////////////////----->
+<!---组件：表行组件-->
+<!---在页面开发过程中，经常会用到很多表格，而表格是由表行与表单元来组成的。今天讲表行组件。-->
+<h6 style="text-align: center; color:green">课程24 》表行组件</h6>
+<div id="myApp24">
+    <table border="1">
+        <tr>
+            <td>编号</td>
+            <td>游戏名称</td>
+        </tr>
+        <!--在表格标签table之中单纯这样引用表行组件是不行的，渲染的时候它们并不在table标签之内，这不符合DOM规范。
+        <my-row1></my-row1>
+        <my-row2></my-row2>
+        <my-row3></my-row3>
+        -->
+        <!--将表行组件引入表格标签要用到is关键字，如下，有效了-->
+        <tr is="my-row1"></tr>
+        <tr is="my-row2"></tr>
+        <tr is="my-row3"></tr>
+    </table>
+</div>
+<hr />
+<script>
+    Vue.component('my-row1',{
+        template:'<tr><td>(1)</td><td>塞尔达传说：荒野之息（3/3）</td></tr>'
+    });
+    Vue.component('my-row2',{
+        template:'<tr><td>(2)</td><td>新马里奥赛车（4/28）</td></tr>'
+    });
+    Vue.component('my-row3',{
+        template:'<tr><td>(3)</td><td>喷射乌贼娘2代</td></tr>'
+    });
+
+    var myApp24 = new Vue({
+        el:'#myApp24',
+        data:{},
+        methods:{}
+    })
+</script>
+
+
+<!---///////////////////////////////////////////////////////////////////////////////////----->
+<!---组件：数据，组件的数据函数
+为Vue.js组件添加数据，使组件可以动态显示各种数据，注意是数据函数，不是数据属性-->
+<h6 style="text-align: center; color:green">课程25 》组件的数据函数</h6>
+<div id="myApp25">
+    <div>今天的天气是：<my-today-weather /></div>
+</div>
+<hr />
+<script>
+    Vue.component('my-today-weather',{
+        template:'<strong>{{todayWeather}}</strong>',
+        /*Vue约定，组件中的data选项必须是一个函数，不能是一个属性。如果定义属性（如下）,将会编译出错！
+        data:{
+            todayWeather:'雨加雪'    //这里直接定义一个属性，然后调用它，是通不过的！
+        }  */
+        //要定义成一个函数才行得通(其实我们return的也只是这么个属性，但一定要在一个函数之内才有效)
+        data:function () {
+            return{
+                todayWeather:'雨加雪'
+            }
+        }
+    });
+
+    var myApp25 = new Vue({
+        el:'#myApp25'
+    })
+</script>
+
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!---组件：传递数据---->
+<!----为组件传递数据，制作可以接受参数的组件。--->
+<h6 style="text-align: center; color:green">课程26 》组件参数，组件的数据传递</h6>
+<div id="myApp26">
+    <h3>您的成绩评价</h3>
+    <!--页面将不同的数值传递给了test-result组件中的score属性，返回不同的testResult评价结果-->
+    <test-result :score="50"></test-result>
+    <test-result :score="65"></test-result>
+    <test-result :score="90"></test-result>
+    <test-result :score="100"></test-result>
+</div>
+<hr />
+<script>
+    Vue.component('test-result',{
+        // 属性选项：属性名，这是今天内容的重点。属性选项定义了一个组件里的属性，一个数组，可以有多个属性名
+        props:['score'],
+        template:'<div><strong>{{score}}分，{{testResult}}</strong></div>',
+        computed:{
+            testResult:function () {
+                var strResult="";
+                if (this.score <60) testResult="不及格";
+                else if (this.score <=80) testResult="中等生";
+                else if (this.score <=90) testResult="良好生";
+                else if (this.score <=100)testResult = "优秀生";
+                return testResult;
+            }
+        }
+    });
+    var myApp26 = new Vue({
+        el:'#myApp26'
+    })
+</script>
+
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!---组件：传递变量---->
+<!----为组件传递变量数据，制作可以接受变量参数的组件。--->
+<h6 style="text-align: center; color:green">课程27 》组件变量参数，传递变量（内容）数据</h6>
+<div id="myApp27">
+    <div>请输入您的名字：
+        <input v-model="myname">
+    </div>
+    <br />
+    <say-hello :pname="myname" />
+</div>
+<hr />
+<script>
+    Vue.component('say-hello',{
+        props:['pname'],
+        template:'<div>你好，<strong>{{pname}}</strong>！</div>'
+    });
+
+    var myApp27 = new Vue({
+        el:'#myApp27',
+        data:{
+            myname:'Jicky'
+        }
+    });
+</script>
+
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!------->
 <!--
-<h6 style="text-align: center; color:green">课程xx class对象绑定</h6>
+<h6 style="text-align: center; color:green">课程xx 》my</h6>
 <div id="myAppXX">
 </div>
 <hr />
