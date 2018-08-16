@@ -681,7 +681,7 @@ Vue.js中的组件不仅可以单独声明注册使用（全局组件），还�
     //在实例中定义的组件，我们叫局部组件，它的作用域只在该实例中。
     //注意，实例中的components属性，这是Vue实例中比较重要的属性，如同el,data,methods等
     var WeatherComponent = {
-        template:'<div>今天下雨，随它去吧！</div>>'
+        template:'<div>今天下雨，随它去吧！</div>'
     };
     var myApp23 = new Vue({
         el:'#myApp23',
@@ -827,6 +827,145 @@ Vue.js中的组件不仅可以单独声明注册使用（全局组件），还�
     });
 </script>
 
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!---组件：参数验证－---->
+<!---props:组件参数验证语法。  为组件中接受到的变量进行逻辑验证。---->
+<h6 style="text-align: center; color:green">课程28 》组件参数的验证</h6>
+<div id="myApp28">
+    <h4>身世之迷</h4>
+    <show-member-info name="koma" :age="25" :detail="{address:'earth',language:'世界语'}"></show-member-info>
+</div>
+<hr />
+<script>
+    Vue.component('show-member-info',{
+        //上一节这儿是一个数组，这里是一个对象。
+        //对象里面有name/age/detail三个元素，每个元素里面又有参数（也可说是属性），参数也可以为一个函数
+        props:{
+            //数据类型为字符，要求必须输入（可在上面HTML里面测试，看控制台有无报错）
+            name:{
+                type:String,
+                required:true
+            },
+            //类型是数值型，范围在0-130岁。（可在上面HTML里面测试，看控制台有无报错）
+            age:{
+                type:Number,
+                validator:function (value) {
+                    return value >= 0 && value <= 130;
+                }
+            },
+            //输入是一个对象{Object}，注意上面HTML中的赋值也是一个对象{}，如果没有赋值，则返回下面默认值。
+            detail:{
+                type:Object,
+                default:function () {
+                    return {
+                        address:'US',
+                        language:'English'
+                    }
+                }
+            }
+        },
+        template:'<div>' +
+        '姓名：{{this.name}}<br />' +
+        '年龄：{{this.age}}岁<br />' +
+        '地址：{{this.detail.address}}<br />' +
+        '语言：{{this.detail.language}}' +
+        '</div>'
+    });
+
+    var myApp28 = new Vue({
+        el:'#myApp28'
+    })
+</script>
+
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--组件：事件传递-->
+<!-- v-on :侦听组件事件，当组件触发事件后进行事件处理---一般用于父组件中，侦听子组件事件-->
+<!-- $emit :(提交）触发事件，并将数据提交给事件侦听者--子组件通过事件给父组件传递参数-->
+<h6 style="text-align: center; color:green">课程29 》组件：事件的传递</h6>
+<div id="myApp29">
+    <h4>人生加法</h4>
+    <add-method :a="6" :b="12" v-on:add_event="getAddResult"></add-method>
+    <h5>{{result}}-->{{status}}</h5>
+</div>
+<hr />
+<script>
+    /*
+    * 本节课的调用逻辑比较复杂，分步骤记录如下：
+    * 1、首先，HTML调用子组件也就是标签<add-method>，传回两个参数a=6,b=12；
+    * 2、这俩参数回到子组件中，而子组件中的模板tempalte中又定义了一个按钮并侦听按钮的click事件，同时调用了add方法，即两数相加；
+    * 同时触发一个事件叫作add_event，并将相加的结果作为一个对象{result:value}回传给父组件；重点：this.$emit
+    * 3、为了侦听子组件中的add_event事件结果，父组件中定义了一个方法getAddResult来接收 ，即上面的v-on:add_event="getAddResult"，
+    * 注意这句就是父子交接口；
+    * 4、getAddResult收到子组件传来的内容并带进它的pval参数，其实这个内容就是对象{result:value}
+    * 5、将这个对象中的result赋值给父组件中的data:{result}
+    * 6、<h5>{{result}}</h5>显示该result的内容。
+    * 7、status是后面我自己加上去的，测试一下自己的理解。####其实还可以进一点测试加减乖除的结果·%
+    * */
+
+    //全局的一个子组件的定义，之前一直是这么用，这里重申概念。
+    Vue.component('add-method',{
+        props:['a','b'],
+        template:'<div><button v-on:click="add">加吧</button></div>',
+        methods:{
+            add:function () {
+                var value=0;
+                value=this.a + this.b;
+                this.$emit('add_event',{
+                    result:value,
+                    status:'OK'
+                })
+            }
+        }
+    });
+    //这里看作是一个父组件
+    var myApp29 = new Vue({
+        el:'#myApp29',
+        data:{
+            result:0,
+            status:''
+        },
+        methods:{
+            getAddResult:function (pval) {
+                this.result = pval.result;
+                this.status =pval.status;
+            }
+        }
+    });
+</script>
+
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!---组件：solt插槽---->
+<!---slot是父组件与子组件的通讯方式，可以将父组件的内容显示在子组件当中---->
+<h6 style="text-align: center; color:green">课程30 》组件：slot插槽</h6>
+<div id="myApp30">
+    <say-to pname="koma">你的视频做的太差了</say-to>
+    <say-to pname="mike">你千万不要学koma</say-to>
+    <say-to pname="john">你教教他们两个吧</say-to>
+</div>
+<hr />
+<script>
+    /*这节课有意思的地方注意几点：
+      0、以往我们都是通过属性来传递参数进子组件，如 <say-to pname="koma">，我们想把“你的视频做的太差了”这些标签内容传进子组件，怎么办？
+    * 1、注意HTML中的这一句<say-to pname="koma">你的视频做的太差了</say-to>，其中按HTML的规范，标签中的文字是属于父组件的，也就是属于页面的
+    * 但是现在是现在是出现在子组件中，也就是自定义标签中。
+    * 2、而子组件中的内容要显示在页面上，是通过template来释义出来才能显示在页面上的
+    * 3、看template中我们比以往多加了一个标签<slot>。如果没有这个会怎样？页面只会显示[你好，XX！]这一段，并不能渲染出“你的视频做的太差了”这些内容
+    * 4、有了<slot>，就是将这些原本是父组件的内容 插入 插入 插入到子组件的template模板中，好了*/
+    Vue.component('say-to',{
+        props:['pname'],
+        template:'<div>' +
+        '你好，<strong>{{pname}}</strong>！' +
+        '<slot></slot>' +  //关键点，插槽，插槽，插槽，就是将子组件的标签内容（注意不是属性），插入到template中。
+        '</div>'
+    });
+
+    var myApp30 = new Vue({
+        el:'#myApp30'
+    });
+</script>
 
 <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 <!------->
