@@ -967,6 +967,44 @@ Vue.js中的组件不仅可以单独声明注册使用（全局组件），还�
     });
 </script>
 
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--组件：组合slot ---在子组件中，通过为多个slot进行命名来接收父组件的不同内容的数据
+上一节课没有对slot进行命名，这节课注意给slot命名-->
+<h6 style="text-align: center; color:green">课程31 》组合slot</h6>
+<div id="myApp31">
+    <!--注意，这里组件nba-all-stars有两种接收数据的方式，1、参数，如c,pf 2、slot
+    这里定义两种数据接收方式是为了更好的理解其区别-->
+    <nba-all-stars c="奥尼尔" pf="加内特">
+        <span slot="sf">皮尔斯</span>
+        <span slot="sg">雷阿伦</span>
+        <span slot="pg">隆多</span>
+    </nba-all-stars>
+</div>
+<hr />
+<script>
+    /*
+    * 1、通过参数的接收内容显示在模板中；
+    * 2、通过slot接收内容显示在模板中。
+    * */
+    Vue.component('nba-all-stars',{
+       props:['c','pf'],
+        template:'<div>' +
+        '<div>中锋：{{c}}</div>' +
+        '<div>大前：{{pf}}</div>' +
+        '<div>小前：<slot name="sf"></slot></div>' + //通过slot插槽为子组件模板传递了HTML的内容。
+        '<div>分卫：<slot name="sg"></slot></div>' +
+        '<div>控卫：<slot name="pg"></slot></div>' +
+        ''
+    });
+
+    var myApp31 = new Vue({
+        el:'#myApp31'
+    })
+</script>
+
+
+
 <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 <!------->
 <!--
